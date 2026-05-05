@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instructions Shape Production of Language, not Processing</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-soft: #333;
+    --ink-mute: #666;
+    --paper: #ffffff;
+    --rule: #e2e2e2;
+    --orange: #f08000;
+    --blue: #00a0a8;
+    --green: #3daf3d;
+    --red: #cc3535;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Noto Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--paper);
+    color: var(--ink-soft);
+    line-height: 1.65;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 1065px;
+    margin: 0 auto;
+    padding: 80px 32px 120px;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    padding-bottom: 48px;
+    margin-bottom: 56px;
+  }
+
+  .logo {
+    width: 130px;
+    height: 130px;
+    margin: 0 auto 24px;
+    display: block;
+  }
+
+  h1 {
+    font-family: "Google Sans", "Noto Sans", sans-serif;
+    font-weight: 600;
+    font-size: clamp(30px, 4.5vw, 44px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+
+  h1 .title-break {
+    display: block;
+    margin-top: 6px;
+  }
+
+  h1 .production {
+    color: var(--orange);
+  }
+
+  h1 .processing {
+    color: var(--blue);
+    position: relative;
+    display: inline-block;
+  }
+
+  h1 .processing::after {
+    content: "";
+    position: absolute;
+    left: -2%;
+    right: -2%;
+    top: 52%;
+    height: 5px;
+    background: var(--ink);
+    transform: rotate(-2deg);
+    border-radius: 2px;
+  }
+
+  .authors {
+    font-size: 16px;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+
+  .affiliations {
+    font-size: 14px;
+    color: var(--ink-mute);
+    margin-bottom: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 6px 14px;
+  }
+
+  .affil {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .affil img {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    display: block;
+  }
+
+  .links {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    background: #363636;
+    color: #fff;
+    text-decoration: none;
+    font-family: "Noto Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    transition: background 0.15s, transform 0.15s;
+  }
+
+  .links a:hover {
+    background: #1a1a1a;
+    transform: translateY(-1px);
+  }
+
+  .links a svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  /* Sections */
+  section {
+    margin-bottom: 72px;
+  }
+
+  h2 {
+    font-family: "Google Sans", "Noto Sans", sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+    color: var(--ink);
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+    text-align: center;
+  }
+
+  h3 {
+    font-family: "Google Sans", "Noto Sans", sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--ink);
+    margin-top: 32px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    margin-bottom: 16px;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  p strong, li strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  a { color: var(--ink); }
+
+  /* Lists */
+  ul, ol {
+    margin: 0 0 16px 22px;
+  }
+
+  li {
+    margin-bottom: 8px;
+    padding-left: 6px;
+  }
+
+  /* Expandable details */
+  details {
+    margin: 12px 0 20px;
+  }
+
+  details summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 4px 0;
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--ink-mute);
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.15s;
+  }
+
+  details summary::-webkit-details-marker { display: none; }
+
+  details summary .more-link {
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 1px;
+    font-weight: 600;
+  }
+
+  details summary::after {
+    content: "→";
+    font-size: 16px;
+    color: var(--ink);
+    transition: transform 0.2s;
+    line-height: 1;
+  }
+
+  details[open] summary::after {
+    transform: rotate(90deg);
+  }
+
+  details summary:hover {
+    color: var(--ink);
+  }
+
+  details .details-body {
+    padding: 12px 0 6px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  details .details-body p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Task table */
+  .task-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 16px;
+  }
+
+  .task-table th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--ink);
+    padding: 8px 12px 8px 0;
+    border-bottom: 1px solid var(--ink);
+    font-size: 14px;
+  }
+
+  .task-table td {
+    padding: 10px 12px 10px 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+
+  .task-table td:first-child {
+    font-weight: 500;
+    color: var(--ink);
+    width: 35%;
+  }
+
+  /* Findings */
+  section {
+    counter-reset: finding;
+  }
+
+  .finding {
+    margin-bottom: 40px;
+    counter-increment: finding;
+  }
+
+  .finding h3 {
+    margin-top: 0;
+  }
+
+  .finding h3::before {
+    content: counter(finding) ". ";
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* Figures */
+  figure {
+    margin: 28px 0;
+  }
+
+  figure img {
+    width: 100%;
+    height: clamp(280px, 42vw, 460px);
+    object-fit: contain;
+    object-position: center top;
+    display: block;
+  }
+
+  figure.compact img {
+    height: clamp(187px, 28vw, 307px);
+  }
+
+  figure.natural img {
+    height: auto;
+  }
+
+  figcaption {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--ink-mute);
+    line-height: 1.55;
+    text-align: left;
+  }
+
+  figcaption b {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* Token pipeline */
+  .token-pipeline {
+    margin: 28px 0 16px;
+    display: grid;
+    grid-template-columns: minmax(440px, 1.25fr) auto minmax(300px, 0.85fr);
+    align-items: center;
+    gap: 20px;
+  }
+
+  .tp-zone-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .tp-zone-title {
+    font-family: "Google Sans", "Noto Sans", sans-serif;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--ink-mute);
+  }
+
+  .tp-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 116px;
+    justify-content: center;
+    padding: 20px 28px;
+    border-radius: 14px;
+  }
+
+  .tp-zone-process { border: 1.5px dashed rgba(0, 160, 168, 0.55); }
+  .tp-zone-produce { border: 1.5px dashed rgba(240, 128, 0, 0.55); }
+
+  .tp-chip {
+    display: inline-block;
+    font-family: "Google Sans", "Noto Sans", sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 7px 22px;
+    border-radius: 99px;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
+  .tp-instr  { background: rgba(61, 175, 61, 0.12);  color: var(--green); }
+  .tp-sample { background: rgba(0, 160, 168, 0.12);  color: var(--blue); }
+  .tp-output { background: rgba(240, 128, 0, 0.12);  color: var(--orange); }
+
+  .tp-token-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tp-plus {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--ink-mute);
+  }
+
+  .tp-center {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+  }
+
+  .tp-center-mobile {
+    display: none;
+  }
+
+  .tp-lm {
+    background: rgba(204, 53, 53, 0.09);
+    color: var(--red);
+    border-radius: 99px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Google Sans", "Noto Sans", sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 7px 22px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .tp-arrow-glyph {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--ink-mute);
+    flex-shrink: 0;
+  }
+
+  .tp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: "Google Sans", "Noto Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 11px 4px 8px;
+    border-radius: 99px;
+  }
+
+  .tp-badge svg { flex-shrink: 0; }
+
+  .tp-badge-probe,
+  .tp-badge-behavior {
+    background: #f2f2f2;
+    color: var(--ink-soft);
+    border: 1.5px solid #d0d0d0;
+  }
+
+  .tp-eval-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .tp-eval-label {
+    font-size: 10px;
+    font-style: italic;
+    color: var(--ink-mute);
+    white-space: nowrap;
+  }
+
+
+  @media (max-width: 1150px) {
+    .token-pipeline {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .tp-center {
+      display: none;
+    }
+    .tp-center-mobile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .tp-zone-wrap { width: 100%; }
+    .tp-zone { min-height: 104px; }
+  }
+
+  /* Probing figure */
+  .chart-key {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    margin: 28px 0 14px;
+    flex-wrap: wrap;
+  }
+
+  .chart-key-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--ink-mute);
+  }
+
+  .chart-key-line {
+    display: inline-block;
+    width: 22px;
+    height: 2px;
+    border-radius: 1px;
+  }
+
+  .chart-key-line-solid  { background: var(--ink-mute); }
+  .chart-key-line-dashed { background: repeating-linear-gradient(to right, var(--ink-mute) 0 4px, transparent 4px 7px); }
+
+  .mini-charts {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .mini-chart {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .mini-chart-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .mini-chart-chip {
+    font-size: 13px !important;
+    padding: 3px 12px !important;
+  }
+
+  .mini-chart-note {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 99px;
+  }
+
+  .mini-chart-note-stable { background: rgba(0,160,168,0.1); color: var(--blue); }
+  .mini-chart-note-varies { background: rgba(240,128,0,0.1); color: var(--orange); }
+
+  .mini-chart-svg { width: 100%; height: auto; }
+
+  /* BibTeX block */
+  .bibtex {
+    background: #f6f6f6;
+    border: 1px solid var(--rule);
+    padding: 18px 20px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    white-space: pre;
+    overflow-x: auto;
+    text-align: left;
+    margin: 12px 0 0;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    font-size: 13px;
+    color: var(--ink-mute);
+    text-align: center;
+  }
+
+  ::selection { background: var(--ink); color: var(--paper); }
+
+  /* === ANIMATIONS === */
+
+  /* Title: words fade up, then strikethrough draws across "Processing" */
+  @keyframes wordRise {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes drawStrike {
+    from { transform: rotate(-2deg) scaleX(0); transform-origin: left center; }
+    to { transform: rotate(-2deg) scaleX(1); transform-origin: left center; }
+  }
+
+  h1 {
+    animation: wordRise 0.5s ease-out backwards;
+    animation-delay: 0.05s;
+  }
+
+  .logo {
+    animation: wordRise 0.5s ease-out backwards;
+  }
+
+  h1 .processing::after {
+    transform: rotate(-2deg) scaleX(0);
+    transform-origin: left center;
+    animation: drawStrike 0.45s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    animation-delay: 0.7s;
+  }
+
+  /* Header meta fades in after title */
+  .authors, .affiliations, .links {
+    animation: wordRise 0.4s ease-out backwards;
+  }
+  .authors { animation-delay: 0.2s; }
+  .affiliations { animation-delay: 0.28s; }
+  .links { animation-delay: 0.36s; }
+
+  /* Scroll-triggered section reveals — gentle fade, minimal travel */
+  section {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+
+  section.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Link buttons: subtle hover only */
+  .links a {
+    transition: background 0.15s, transform 0.15s;
+  }
+  .links a:hover {
+    transform: translateY(-1px);
+  }
+
+  /* Respect users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    h1, .logo, .authors, .affiliations, .links,
+    section {
+      animation: none;
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    h1 .processing::after {
+      animation: none;
+      transform: rotate(-2deg) scaleX(1);
+    }
+  }
+
+  /* Print: force everything visible, open all details, avoid awkward breaks */
+  @media print {
+    h1, .logo, .authors, .affiliations, .links,
+    section {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    details {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    details > summary {
+      display: none;
+    }
+    details > .details-body {
+      display: block !important;
+    }
+    figure, .finding, .token-pipeline, .pf-wrap, table {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    h2, h3 {
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+    p {
+      orphans: 3;
+      widows: 3;
+    }
+    /* Strikethrough on "Processing" rasterizes oddly via rotated ::after — use a clean line-through in print */
+    h1 .processing::after {
+      display: none;
+    }
+    h1 .processing {
+      text-decoration: line-through;
+      text-decoration-thickness: 3px;
+      text-decoration-color: var(--ink);
+    }
+    .page {
+      padding: 24px 24px 24px;
+    }
+    footer {
+      page-break-before: avoid;
+      break-before: avoid;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <img class="logo" src="logo.png" alt="" aria-hidden="true">
+  <h1>Instructions Shape <span class="production">Production</span> of Language,<span class="title-break">not <span class="processing">Processing</span></span></h1>
+  <div class="authors">
+    Andreas Waldis, Leshem Choshen, Yufang Hou, Yotam Perlitz
+  </div>
+  <div class="affiliations">
+    <span class="affil"><img src="https://www.google.com/s2/favicons?sz=32&domain=uni-tuebingen.de" alt="">University of Tübingen</span>
+    <span class="affil"><img src="https://www.google.com/s2/favicons?sz=32&domain=ibm.com" alt="">IBM Research</span>
+    <span class="affil"><img src="https://www.google.com/s2/favicons?sz=32&domain=mit.edu" alt="">MIT</span>
+    <span class="affil"><img src="https://www.google.com/s2/favicons?sz=32&domain=it-u.at" alt="">IT:U Austria</span>
+  </div>
+  <div class="links">
+    <a href="#">
+      <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 288c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64zm384 64l-128 0L256 0 384 128zM112 256c-8.8 0-16 7.2-16 16l0 128c0 8.8 7.2 16 16 16s16-7.2 16-16l0-32 16 0c30.9 0 56-25.1 56-56s-25.1-56-56-56l-32 0zm32 80l-16 0 0-48 16 0c13.3 0 24 10.7 24 24s-10.7 24-24 24zm56-64l0 128c0 8.8 7.2 16 16 16l24 0c26.5 0 48-21.5 48-48l0-64c0-26.5-21.5-48-48-48l-24 0c-8.8 0-16 7.2-16 16zm32 16l8 0c8.8 0 16 7.2 16 16l0 64c0 8.8-7.2 16-16 16l-8 0 0-96zm96 0l0 32 0 16 0 48c0 8.8 7.2 16 16 16s16-7.2 16-16l0-32 32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0 0-16 32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0c-17.7 0-32 14.3-32 32z"/></svg>
+      <span>Paper</span>
+    </a>
+    <a href="#">
+      <svg viewBox="0 0 496 512" aria-hidden="true"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      <span>Code</span>
+    </a>
+  </div>
+</header>
+
+<section>
+  <h2>Overview</h2>
+
+  <p>Instructions induce a <strong>production-centered mechanism</strong> in language models. Inspired by cognitive theories of language, we distinguish two stages: <strong>processing</strong>, where the model encodes the input, and <strong>production</strong>, where it generates a response. We observe a clear <strong>asymmetry</strong>: task information (<svg viewBox="0 0 16 16" width="20" height="20" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" style="vertical-align:-3px;display:inline-block"><circle cx="6.5" cy="6.5" r="4"/><line x1="9.9" y1="9.9" x2="13" y2="13"/></svg>) at the processing stage remains stable across prompt variations and aligns only weakly with behavior (<svg viewBox="0 0 16 16" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,14 6,10 9,12 14,7"></polyline></svg>), whereas task information (<svg viewBox="0 0 16 16" width="20" height="20" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" style="vertical-align:-3px;display:inline-block"><circle cx="6.5" cy="6.5" r="4"/><line x1="9.9" y1="9.9" x2="13" y2="13"/></svg>) at the production stage varies substantially and correlates strongly with behavior (<svg viewBox="0 0 16 16" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,14 6,10 9,12 14,7"></polyline></svg>).</p>  
+
+<p>What does this production-centered mechanism imply?</p>
+
+<ul>
+
+  <li><strong>For evaluation:</strong> Behavior alone conflates two distinct failure modes: the model fails to encode the answer, or it encodes it but does not express it. Our token-position abstraction provides a lens to disentangle these cases.</li>
+
+  <li><strong>For interpretation:</strong> Prompt sensitivity, scaling effects, and instruction-tuning gains primarily affect how models express knowledge rather than what they encode. This offers a complementary perspective on what constitutes a stronger model.</li>
+
+  <li><strong>For training:</strong> It remains an open question whether balancing the two stages would improve models, or whether the asymmetry is functional. In either case, our framework provides a basis for targeted investigation.</li>
+
+</ul>
+
+
+<div class="token-pipeline">
+    <div class="tp-zone-wrap">
+      <span class="tp-zone-title">processing language</span>
+      <div class="tp-zone tp-zone-process">
+        <div class="tp-token-row">
+          <span class="tp-chip tp-instr">instruction tokens</span>
+          <span class="tp-plus">+</span>
+          <span class="tp-chip tp-sample">sample tokens</span>
+        </div>
+        <div class="tp-eval-group">
+          <span class="tp-eval-label">internal evaluation</span>
+          <span class="tp-badge tp-badge-probe">
+            <svg viewBox="0 0 16 16" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="4.5"/><line x1="10.4" y1="10.4" x2="14" y2="14"/></svg>
+            task info
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="tp-center">
+      <span class="tp-arrow-glyph">→</span>
+      <span class="tp-lm">language model</span>
+      <span class="tp-arrow-glyph">→</span>
+    </div>
+    <div class="tp-center-mobile">
+      <span class="tp-arrow-glyph">↓</span>
+      <span class="tp-lm">language model</span>
+      <span class="tp-arrow-glyph">↓</span>
+    </div>
+    <div class="tp-zone-wrap">
+      <span class="tp-zone-title">producing language</span>
+      <div class="tp-zone tp-zone-produce">
+        <span class="tp-chip tp-output">output tokens</span>
+        <div class="tp-token-row">
+          <div class="tp-eval-group">
+            <span class="tp-eval-label">internal evaluation</span>
+            <span class="tp-badge tp-badge-probe">
+              <svg viewBox="0 0 16 16" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="4.5"/><line x1="10.4" y1="10.4" x2="14" y2="14"/></svg>
+              task info
+            </span>
+          </div>
+          <div class="tp-eval-group">
+            <span class="tp-eval-label">behavioral evaluation</span>
+            <span class="tp-badge tp-badge-behavior">
+              <svg viewBox="0 0 16 16" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,11 6,7 9,9 14,4"/></svg>
+              performance
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h2>Method</h2>
+
+  <p>To study these stages inside a decoder-only model, we use token position as an abstraction: <strong>sample tokens</strong> stand in for processing and <strong>output tokens</strong> for production. At each layer, we probe (<svg viewBox="0 0 16 16" width="20" height="20" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" style="vertical-align:-3px;display:inline-block"><circle cx="6.5" cy="6.5" r="4"/><line x1="9.9" y1="9.9" x2="13" y2="13"/></svg>) how much task-specific information the model carries at each stage, compare three <strong>prompting variations</strong> (instruction-first, sample-first, and in-context learning), and run <strong>attention-based interventions</strong> to test the causal effect on behavior (<svg viewBox="0 0 16 16" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,14 6,10 9,12 14,7"></polyline></svg>).</p>
+
+  <details>
+    <summary>More on the <span class="more-link">tasks, models, and experimental setup</span></summary>
+    <div class="details-body">
+      <p>We study five binary judgment tasks and cast each one as a yes/no question. That setup lets us compare the same target in both behavior and internal probing.</p>
+      <table class="task-table">
+        <thead>
+          <tr><th>Task</th><th>Question</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>BLiMP</td><td>Is the text linguistically acceptable?</td></tr>
+          <tr><td>StereoSet</td><td>Does the text contain stereotypical references?</td></tr>
+          <tr><td>oLMpics</td><td>Does the text make sense as a piece of reasoning?</td></tr>
+          <tr><td>EWOK</td><td>Is the described scenario plausible given world knowledge?</td></tr>
+          <tr><td>ToM</td><td>Are the assumptions in the final sentence logically correct?</td></tr>
+        </tbody>
+      </table>
+      <p>Our analysis covers three model families: Llama-3.1, OLMo-2, and Qwen-2.5. We report the main results as averages across families and tasks, and we also include per-family and per-task breakdowns.</p>
+      <p>At every layer, we train a linear probe to predict the binary task label from the internal state, separately for sample-token and output-token representations. To ensure stable results, we train every probe 20 times across four folds and five random seeds. For each layer, we average token representations before probing. We validate the setup with control tasks, an information-theoretic analysis, and comparisons to non-linear probes.</p>
+      <p>We compare three prompting variations: <strong>instruction first</strong> (instruction before the task sample), <strong>sample first</strong> (task sample followed by the instruction), and <strong>in-context learning</strong> with four labeled examples and no explicit instruction. We then measure how task-specific information changes across those variations and how it changes when the model selectively blocks attention flow from the instruction.</p>
+      <figure class="natural">
+        <img src="figures/overview.png" alt="Overview comparing sample tokens and output tokens inside the model">
+        <figcaption>Detail overview on the methodology. The top row shows behavior; the bottom row shows internals. Sample-token representations stay largely stable across prompt variations and correlate only weakly with behavior, while output-token representations vary more and track behavior more closely.</figcaption>
+      </figure>
+    </div>
+  </details>
+</section>
+
+<section>
+  <h2>Main Findings</h2>
+
+<div class="finding">
+    <h3>Processing stays stable; production varies and tracks behavior</h3>
+    <p>Across three prompting variations, task-specific information in <strong>sample tokens</strong> stays largely stable (±0.7 pp spread) and correlates only weakly with model behavior (τ = −0.15). The same information in <strong>output tokens</strong> varies substantially (±2.2 pp) and tracks behavior closely (τ = 0.62). Behavioral differences across prompts therefore reflect changes in how information is <em>expressed</em>, not how it is <em>encoded</em>.</p>
+</div>
+
+  <figure class="compact">
+    <img src="figures/overview_observation.png" alt="Layer-wise task information in sample and output tokens, plus behavioral accuracy across prompts">
+    <figcaption><b>Figure 1.</b> Layer-wise task-specific information for sample tokens (a) and output tokens (b), with the shaded bands showing the spread across prompting variations. The band for sample tokens is far narrower. Panel (c) shows that behavioral accuracy varies across prompting setups — in step with the output-token spread, not the sample-token spread.</figcaption>
+  </figure>
+
+  <details>
+    <summary>Causal confirmation via <span class="more-link">intervention results</span></summary>
+    <div class="details-body">
+      <p>We intervene on the attention flow between instruction and sample tokens. <strong>Blocking instructions from all subsequent tokens</strong> drops accuracy by 58 pp and reduces output-token information — while sample-token information stays nearly intact (−0.8 pp). <strong>Blocking instructions only from sample tokens</strong> has minimal effect on behavior (−4 pp) or sample-token information.</p>
+      <figure class="compact">
+        <img src="figures/intervention_combined.png" alt="Attention intervention setup and results showing full vs prompt-only intervention">
+        <figcaption><b>Figure 2.</b> Intervention setup (a): full blocks instruction flow to all subsequent tokens; prompt-only blocks it only to sample tokens. Results (b): the full intervention sharply reduces behavior and output-token information; the prompt-only intervention barely affects either.</figcaption>
+      </figure>
+    </div>
+  </details>
+
+<details>
+    <summary>Zooming in on <span class="more-link">instance-level results</span></summary>
+    <div class="details-body">
+      <p>We also check whether probing predictions agree per instance. Sample-token probes agree across prompting variations substantially more than output-token probes (left panel). At the same time, sample-token probes weakly align with behavior (up to 35%), while output-token probes align much more closely (up to 60%, right panel). These results show that output-token probes track the model's behavior — confirming the same asymmetry at the instance level.</p>
+      <figure class="compact">
+        <img src="figures/overview_alignment.png" alt="Instance-level agreement across prompts and alignment with the model's behavior for sample and output tokens">
+        <figcaption><b>Figure 3.</b> Instance-level agreement across prompting variations (left) and alignment between probing predictions and the model's behavior (right), for sample and output tokens across layers. Sample-token representations are consistent across prompts and weakly aligned with behavior; output-token representations vary across prompts and closely track what the model produces.</figcaption>
+      </figure>
+    </div>
+</details>
+
+  <div class="finding">
+      <h3>Scaling strengthens production disproportionately</h3>
+      <p>As models grow, output-token information increases more (by 30% in OLMo and 46% in Qwen, comparing smallest to largest) than sample-token information (by 20% and 30%, respectively). Thus, larger models become better at <em>expressing</em> already-encoded information, not just at encoding more of it.</p>
+  </div>
+
+  <figure>
+    <img src="figures/scaling.png" alt="Effect of model size on task information in sample and output tokens">
+    <figcaption><b>Figure 4.</b> Task-specific information in sample and output tokens as model size grows (a), and behavioral accuracy at each size (b).</figcaption>
+  </figure>
+
+
+  <div class="finding">
+      <h3>Instruction tuning primarily amplifies production</h3>
+      <p>Instruction tuning substantially increases task-specific information in output-token representations, while sample-token representations stay largely unchanged — particularly in lower to middle layers. This gives a mechanistic reading of the <em>Superficial Alignment Hypothesis</em>: post-training shapes how knowledge is <em>expressed</em>, not what is encoded.</p>
+  </div>
+
+    <figure class="compact">
+    <img src="figures/base_chat.png" alt="Base versus instruction-tuned models">
+    <figcaption><b>Figure 5.</b> Base models versus instruction-tuned models. Output tokens carry substantially more task-specific information after instruction tuning; sample tokens stay largely unchanged.</figcaption>
+  </figure>
+
+  
+  <div class="finding">
+    <h3>Task type modulates the size of the gap</h3>
+    <p>The asymmetry holds across all tasks but is not uniform. Surface-sensitive tasks (BLiMP, StereoSet) show tighter coupling between sample and output tokens, while knowledge and reasoning tasks (oLMpics, EWOK, ToM) show a stronger split — e.g. EWOK: τ = 0.70 vs. 0.29.</p>
+  </div>
+
+  <figure class="compact">
+    <img src="figures/task_scoreboard.png" alt="Per-task probing accuracy and behavioral performance">
+    <figcaption><b>Figure 6.</b> Probing accuracy in sample tokens, output tokens, and behavioral performance, broken down by task. The gap between output and sample probing is smallest for BLiMP and largest for oLMpics and EWOK.</figcaption>
+  </figure>
+
+<div class="finding">
+    <h3>The two stages show distinct layer-wise dynamics</h3>
+    <p>Output-token representations show high, more uniform cross-layer agreement — production-stage information seems to be maintained throughout the network. Sample-token representations change more across layers and reveal task-specific structure, hinting at how each task is processed differently.</p>
+</div>
+  <figure>
+    <img src="figures/task_agreement.png" alt="Layer-by-layer agreement of internal representations, per task">
+    <figcaption><b>Figure 7.</b> Layer-wise pairwise representation agreement per task, for sample tokens (top row) and output tokens (bottom row). Each cell shows the agreement between probing predictions at layers i and j.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>BibTeX</h2>
+  <pre class="bibtex">@article{waldis2026instructions,
+  title  = {Instructions Shape Production of Language, not Processing},
+  author = {Waldis, Andreas and Choshen, Leshem and Hou, Yufang and Perlitz, Yotam},
+  year   = {2026}
+}</pre>
+</section>
+
+<footer>
+  Project page · May 2026
+</footer>
+
+</div>
+
+<script>
+  // Reveal sections as they scroll into view
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduceMotion) {
+    document.querySelectorAll('section').forEach(s => s.classList.add('in-view'));
+  } else {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0,
+      rootMargin: '0px 0px 200px 0px'
+    });
+
+    document.querySelectorAll('section').forEach(s => observer.observe(s));
+  }
+</script>
+
+</body>
+</html>
