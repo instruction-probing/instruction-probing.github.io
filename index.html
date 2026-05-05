@@ -866,7 +866,7 @@
   <h2>Main Findings</h2>
 
 <div class="finding">
-    <h3>Processing stays stable; production varies and tracks behavior</h3>
+    <h3>Processing stays stable; production varies and tracks behavior.</h3>
     <p>Across three prompting variations, task-specific information in <strong>sample tokens</strong> stays largely stable (±0.7 pp spread) and correlates only weakly with model behavior (τ = −0.15). The same information in <strong>output tokens</strong> varies substantially (±2.2 pp) and tracks behavior closely (τ = 0.62). Behavioral differences across prompts therefore reflect changes in how information is <em>expressed</em>, not how it is <em>encoded</em>.</p>
 </div>
 
@@ -898,8 +898,8 @@
 </details>
 
   <div class="finding">
-      <h3>Scaling strengthens production disproportionately</h3>
-      <p>As models grow, output-token information increases more (by 30% in OLMo and 46% in Qwen, comparing smallest to largest) than sample-token information (by 20% and 30%, respectively). Thus, larger models become better at <em>expressing</em> already-encoded information, not just at encoding more of it.</p>
+      <h3>Scaling strengthens production disproportionately.</h3>
+      <p>As models grow, output-token information increases substantially more (46% in Qwen-2.5 and 30% in OLMo-2, comparing smallest to largest) than sample-token information (30% and 20%, respectively). Larger models therefore become better at <em>expressing</em> already-encoded information rather than at encoding more of it.</p>
   </div>
 
   <figure>
@@ -909,8 +909,8 @@
 
 
   <div class="finding">
-      <h3>Instruction tuning primarily amplifies production</h3>
-      <p>Instruction tuning substantially increases task-specific information in output-token representations, while sample-token representations stay largely unchanged — particularly in lower to middle layers. This gives a mechanistic reading of the <em>Superficial Alignment Hypothesis</em>: post-training shapes how knowledge is <em>expressed</em>, not what is encoded.</p>
+      <h3>Instruction tuning primarily amplifies production.</h3>
+      <p>Instruction-tuning substantially increases task-specific information in output-token representations, while sample-token representations stay comparatively unchanged. This makes the <em>Superficial Alignment Hypothesis</em> concrete at model internal computation: post-training overproportionally improve models on how they express task information, not how they encode it.</p>
   </div>
 
     <figure class="compact">
@@ -920,8 +920,9 @@
 
   
   <div class="finding">
-    <h3>Task type modulates the size of the gap</h3>
-    <p>The asymmetry holds across all tasks but is not uniform. Surface-sensitive tasks (BLiMP, StereoSet) show tighter coupling between sample and output tokens, while knowledge and reasoning tasks (oLMpics, EWOK, ToM) show a stronger split — e.g. EWOK: τ = 0.70 vs. 0.29.</p>
+    <h3>Task type modulates the processing-production asymmetry.</h3>
+    <p>The production-centered mechanism holds consistently across tasks. Information in sample tokens is uncorrelated with information in output tokens (τ = 0), whereas output-token information strongly correlates with behavior (τ = 0.85). At the same time, the processing–production asymmetry varies systematically across tasks, reflecting task-specific computations. The separation between stages is most pronounced for knowledge and reasoning tasks (oLMpics, EWOK, ToM).</p>
+  <p>Across tasks, behavior consistently aligns with production, while processing and production remain decoupled. Task type modulates the strength of this asymmetry, with the largest separation for knowledge and reasoning tasks, like EWOK.</p>  
   </div>
 
   <figure class="compact">
@@ -930,9 +931,8 @@
   </figure>
 
 <div class="finding">
-    <h3>The two stages show distinct layer-wise dynamics</h3>
-    <p>Output-token representations show high, more uniform cross-layer agreement — production-stage information seems to be maintained throughout the network. Sample-token representations change more across layers and reveal task-specific structure, hinting at how each task is processed differently.</p>
-</div>
+    <h3>The two stages show distinct layer-wise dynamics.</h3>
+  <p>Output-token representations show high and uniform cross-layer agreement, indicating early stabilization of production-stage information. In contrast, sample-token representations are continuously transformed, revealing a fundamental difference between production and processing stages. At the same time, sample-token representations vary across tasks, while output-token representations show more similar layer-wise agreement across tasks.</p>  </div>
   <figure>
     <img src="figures/task_agreement.png" alt="Layer-by-layer agreement of internal representations, per task">
     <figcaption><b>Figure 7.</b> Layer-wise pairwise representation agreement per task, for sample tokens (top row) and output tokens (bottom row). Each cell shows the agreement between probing predictions at layers i and j.</figcaption>
