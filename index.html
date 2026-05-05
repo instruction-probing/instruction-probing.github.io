@@ -100,6 +100,25 @@
     margin-bottom: 8px;
   }
 
+  .authors .author {
+    white-space: nowrap;
+  }
+
+  .authors .author-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    margin-left: 4px;
+    vertical-align: -2px;
+  }
+
+  .authors .author-icons img {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    display: block;
+  }
+
   .affiliations {
     font-size: 14px;
     color: var(--ink-mute);
@@ -720,7 +739,10 @@
   <img class="logo" src="logo.png" alt="" aria-hidden="true">
   <h1>Instructions Shape <span class="production">Production</span> of Language,<span class="title-break">not <span class="processing">Processing</span></span></h1>
   <div class="authors">
-    Andreas Waldis, Leshem Choshen, Yufang Hou, Yotam Perlitz
+    <span class="author">Andreas Waldis<span class="author-icons"><img src="https://www.google.com/s2/favicons?sz=32&domain=uni-tuebingen.de" alt="University of Tübingen"></span></span>,
+    <span class="author">Leshem Choshen<span class="author-icons"><img src="https://www.google.com/s2/favicons?sz=32&domain=ibm.com" alt="IBM Research"><img src="https://www.google.com/s2/favicons?sz=32&domain=mit.edu" alt="MIT"></span></span>,
+    <span class="author">Yufang Hou<span class="author-icons"><img src="https://www.google.com/s2/favicons?sz=32&domain=it-u.at" alt="IT:U Austria"></span></span>,
+    <span class="author">Yotam Perlitz<span class="author-icons"><img src="https://www.google.com/s2/favicons?sz=32&domain=ibm.com" alt="IBM Research"></span></span>
   </div>
   <div class="affiliations">
     <span class="affil"><img src="https://www.google.com/s2/favicons?sz=32&domain=uni-tuebingen.de" alt="">University of Tübingen</span>
