@@ -4,6 +4,61 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Instructions Shape Production of Language, not Processing</title>
+
+<!-- SEO -->
+<meta name="description" content="Instructions trigger a production-centered mechanism in language models. Through a cognitively inspired lens that separates language processing and production, we show that instructions act as a filter on already-encoded information rather than shaping what gets encoded — uncovering an asymmetry between sample-token and output-token representations.">
+<meta name="keywords" content="language models, instruction following, mechanistic interpretability, probing, language processing, language production, NLP, LLM, prompt sensitivity, attention interventions">
+<meta name="author" content="Andreas Waldis, Leshem Choshen, Yufang Hou, Yotam Perlitz">
+<link rel="canonical" href="https://instruction-probing.github.io/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Instructions Shape Production of Language, not Processing">
+<meta property="og:description" content="Instructions trigger a production-centered mechanism in language models. We separate language processing and production via token-position probing and find a clear asymmetry: information at the production stage tracks behavior; information at the processing stage does not.">
+<meta property="og:url" content="https://instruction-probing.github.io/">
+<meta property="og:site_name" content="Instructions Shape Production of Language, not Processing">
+<meta property="og:image" content="https://instruction-probing.github.io/logo.png">
+<meta property="og:image:alt" content="Project logo for Instructions Shape Production of Language, not Processing">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="Andreas Waldis">
+<meta property="article:author" content="Leshem Choshen">
+<meta property="article:author" content="Yufang Hou">
+<meta property="article:author" content="Yotam Perlitz">
+<meta property="article:published_time" content="2026-05-05">
+<meta property="article:section" content="Research">
+<meta property="article:tag" content="language models">
+<meta property="article:tag" content="instruction following">
+<meta property="article:tag" content="probing">
+
+<!-- Twitter card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Instructions Shape Production of Language, not Processing">
+<meta name="twitter:description" content="Instructions trigger a production-centered mechanism in language models — an asymmetry between processing and production, surfaced via token-position probing.">
+<meta name="twitter:image" content="https://instruction-probing.github.io/logo.png">
+<meta name="twitter:image:alt" content="Project logo for Instructions Shape Production of Language, not Processing">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Instructions Shape Production of Language, not Processing",
+  "name": "Instructions Shape Production of Language, not Processing",
+  "abstract": "Instructions trigger a production-centered mechanism in language models. Through a cognitively inspired lens that separates language processing and production, we reveal this mechanism as an asymmetry between the two stages by probing task-specific information layer-wise across five binary judgment tasks. Across prompting variations, task-specific information in sample tokens stays largely stable and correlates only weakly with behavior, whereas the same information in output tokens varies substantially and correlates strongly. Attention-based interventions confirm this pattern causally.",
+  "author": [
+    { "@type": "Person", "name": "Andreas Waldis", "affiliation": { "@type": "Organization", "name": "University of Tübingen, Department of Linguistics" } },
+    { "@type": "Person", "name": "Leshem Choshen", "affiliation": [{ "@type": "Organization", "name": "IBM Research" }, { "@type": "Organization", "name": "MIT" }, { "@type": "Organization", "name": "MIT-IBM Watson AI Lab" }] },
+    { "@type": "Person", "name": "Yufang Hou", "affiliation": { "@type": "Organization", "name": "Interdisciplinary Transformation University of Austria" } },
+    { "@type": "Person", "name": "Yotam Perlitz", "affiliation": { "@type": "Organization", "name": "IBM Research" } }
+  ],
+  "datePublished": "2026-05-05",
+  "url": "https://instruction-probing.github.io/",
+  "image": "https://instruction-probing.github.io/logo.png",
+  "inLanguage": "en",
+  "keywords": "language models, instruction following, mechanistic interpretability, probing, language processing, language production"
+}
+</script>
+
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -855,7 +910,7 @@
       <p>At every layer, we train a linear probe to predict the binary task label from the internal state, separately for sample-token and output-token representations. To ensure stable results, we train every probe 20 times across four folds and five random seeds. For each layer, we average token representations before probing. We validate the setup with control tasks, an information-theoretic analysis, and comparisons to non-linear probes.</p>
       <p>We compare three prompting variations: <strong>instruction first</strong> (instruction before the task sample), <strong>sample first</strong> (task sample followed by the instruction), and <strong>in-context learning</strong> with four labeled examples and no explicit instruction. We then measure how task-specific information changes across those variations and how it changes when the model selectively blocks attention flow from the instruction.</p>
       <figure class="natural">
-        <img src="figures/overview.png" alt="Overview comparing sample tokens and output tokens inside the model">
+        <img src="figures/overview.png" loading="lazy" decoding="async" alt="Overview comparing sample tokens and output tokens inside the model">
         <figcaption>Detail overview on the methodology. The top row shows behavior; the bottom row shows internals. Sample-token representations stay largely stable across prompt variations and correlate only weakly with behavior, while output-token representations vary more and track behavior more closely.</figcaption>
       </figure>
     </div>
@@ -871,7 +926,7 @@
 </div>
 
   <figure class="compact">
-    <img src="figures/overview_observation.png" alt="Layer-wise task information in sample and output tokens, plus behavioral accuracy across prompts">
+    <img src="figures/overview_observation.png" loading="lazy" decoding="async" alt="Layer-wise task information in sample and output tokens, plus behavioral accuracy across prompts">
     <figcaption><b>Figure 1.</b> Layer-wise task-specific information for sample tokens (a) and output tokens (b), with the shaded bands showing the spread across prompting variations. The band for sample tokens is far narrower. Panel (c) shows that behavioral accuracy varies across prompting setups — in step with the output-token spread, not the sample-token spread.</figcaption>
   </figure>
 
@@ -880,7 +935,7 @@
     <div class="details-body">
       <p>We intervene on the attention flow between instruction and sample tokens. <strong>Blocking instructions from all subsequent tokens</strong> drops accuracy by 58 pp and reduces output-token information — while sample-token information stays nearly intact (−0.8 pp). <strong>Blocking instructions only from sample tokens</strong> has minimal effect on behavior (−4 pp) or sample-token information.</p>
       <figure class="compact">
-        <img src="figures/intervention_combined.png" alt="Attention intervention setup and results showing full vs prompt-only intervention">
+        <img src="figures/intervention_combined.png" loading="lazy" decoding="async" alt="Attention intervention setup and results showing full vs prompt-only intervention">
         <figcaption><b>Figure 2.</b> Intervention setup (a): full blocks instruction flow to all subsequent tokens; prompt-only blocks it only to sample tokens. Results (b): the full intervention sharply reduces behavior and output-token information; the prompt-only intervention barely affects either.</figcaption>
       </figure>
     </div>
@@ -891,7 +946,7 @@
     <div class="details-body">
       <p>We also check whether probing predictions agree per instance. Sample-token probes agree across prompting variations substantially more than output-token probes (left panel). At the same time, sample-token probes weakly align with behavior (up to 35%), while output-token probes align much more closely (up to 60%, right panel). These results show that output-token probes track the model's behavior — confirming the same asymmetry at the instance level.</p>
       <figure class="compact">
-        <img src="figures/overview_alignment.png" alt="Instance-level agreement across prompts and alignment with the model's behavior for sample and output tokens">
+        <img src="figures/overview_alignment.png" loading="lazy" decoding="async" alt="Instance-level agreement across prompts and alignment with the model's behavior for sample and output tokens">
         <figcaption><b>Figure 3.</b> Instance-level agreement across prompting variations (left) and alignment between probing predictions and the model's behavior (right), for sample and output tokens across layers. Sample-token representations are consistent across prompts and weakly aligned with behavior; output-token representations vary across prompts and closely track what the model produces.</figcaption>
       </figure>
     </div>
@@ -903,7 +958,7 @@
   </div>
 
   <figure>
-    <img src="figures/scaling.png" alt="Effect of model size on task information in sample and output tokens">
+    <img src="figures/scaling.png" loading="lazy" decoding="async" alt="Effect of model size on task information in sample and output tokens">
     <figcaption><b>Figure 4.</b> Task-specific information in sample and output tokens as model size grows (a), and behavioral accuracy at each size (b).</figcaption>
   </figure>
 
@@ -914,7 +969,7 @@
   </div>
 
     <figure class="compact">
-    <img src="figures/base_chat.png" alt="Base versus instruction-tuned models">
+    <img src="figures/base_chat.png" loading="lazy" decoding="async" alt="Base versus instruction-tuned models">
     <figcaption><b>Figure 5.</b> Base models versus instruction-tuned models. Output tokens carry substantially more task-specific information after instruction tuning; sample tokens stay largely unchanged.</figcaption>
   </figure>
 
@@ -926,7 +981,7 @@
   </div>
 
   <figure class="compact">
-    <img src="figures/task_scoreboard.png" alt="Per-task probing accuracy and behavioral performance">
+    <img src="figures/task_scoreboard.png" loading="lazy" decoding="async" alt="Per-task probing accuracy and behavioral performance">
     <figcaption><b>Figure 6.</b> Probing accuracy in sample tokens, output tokens, and behavioral performance, broken down by task. The gap between output and sample probing is smallest for BLiMP and largest for oLMpics and EWOK.</figcaption>
   </figure>
 
@@ -934,7 +989,7 @@
     <h3>The two stages show distinct layer-wise dynamics.</h3>
   <p>Output-token representations show high and uniform cross-layer agreement, indicating early stabilization of production-stage information. In contrast, sample-token representations are continuously transformed, revealing a fundamental difference between production and processing stages. At the same time, sample-token representations vary across tasks, while output-token representations show more similar layer-wise agreement across tasks.</p>  </div>
   <figure>
-    <img src="figures/task_agreement.png" alt="Layer-by-layer agreement of internal representations, per task">
+    <img src="figures/task_agreement.png" loading="lazy" decoding="async" alt="Layer-by-layer agreement of internal representations, per task">
     <figcaption><b>Figure 7.</b> Layer-wise pairwise representation agreement per task, for sample tokens (top row) and output tokens (bottom row). Each cell shows the agreement between probing predictions at layers i and j.</figcaption>
   </figure>
 </section>
